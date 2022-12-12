@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { Customer } from '../model/customer';
-
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-customer',
@@ -9,10 +9,14 @@ import { Customer } from '../model/customer';
 })
 export class AddCustomerComponent {
   customers:Customer[]=[];
-   
-addCustomer(customer_name:string){
+  @Output() customerAdded=new EventEmitter<Customer[]>
+
+         constructor(){}
+        
+    addCustomer(customer_name:string): void{
+
   const customer ={name:customer_name};
     this.customers.push(customer)
-    console.log(this.customers);
+    this.customerAdded.emit(this.customers)
 }
 }
